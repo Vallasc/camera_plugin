@@ -507,6 +507,7 @@ public class Camera {
   }
 
   public void setTorchMode(@NonNull final Result result, boolean enable, double level){
+    enableTorch = enable;
     try {
       captureRequestBuilder.set(
         CaptureRequest.FLASH_MODE,
