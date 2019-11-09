@@ -49,10 +49,10 @@ public class Camera {
   private final Size captureSize;
   private final Size previewSize;
   private final boolean enableAudio;
-  private final boolean enableTorch;
   private final boolean enableAE;
   private final boolean fixOrientation;
 
+  private boolean enableTorch;
   private CameraDevice cameraDevice;
   private CameraCaptureSession cameraCaptureSession;
   private ImageReader pictureImageReader;
