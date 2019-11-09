@@ -256,7 +256,7 @@ public class Camera {
         cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
         captureBuilder.addTarget(pictureImageReader.getSurface());
         captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getMediaOrientation());
-        captureRequestBuilder.set(CaptureRequest.FLASH_MODE, enableTorch ?
+        captureBuilder.set(CaptureRequest.FLASH_MODE, enableTorch ?
                         CameraMetadata.FLASH_MODE_TORCH : CameraMetadata.FLASH_MODE_OFF);
 
       cameraCaptureSession.capture(
