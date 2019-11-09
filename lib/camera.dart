@@ -246,6 +246,7 @@ class CameraController extends ValueNotifier<CameraValue> {
     this.enableAudio = true,
     this.enableTorch = false,
     this.enableAE = true,
+    this.fixOrientation = false,
   }) : super(const CameraValue.uninitialized());
 
   final CameraDescription description;
@@ -259,6 +260,9 @@ class CameraController extends ValueNotifier<CameraValue> {
 
   // Auto Exposure
   final bool enableAE;
+
+  // Fix image Orientation
+  final bool fixOrientation;
 
 
   int _textureId;
@@ -285,6 +289,7 @@ class CameraController extends ValueNotifier<CameraValue> {
           'enableAudio': enableAudio,
           'enableTorch': enableTorch,
           'enableAE': enableAE,
+          'fixOrientation': fixOrientation,
         },
       );
       _textureId = reply['textureId'];

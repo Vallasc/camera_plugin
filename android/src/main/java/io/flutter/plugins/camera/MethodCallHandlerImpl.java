@@ -167,6 +167,7 @@ final class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
     boolean enableAudio = call.argument("enableAudio");
     boolean enableTorch = call.argument("enableTorch");
     boolean enableAE = call.argument("enableAE");
+    boolean fixOrientation = call.argument("fixOrientation");
     TextureRegistry.SurfaceTextureEntry flutterSurfaceTexture =
         textureRegistry.createSurfaceTexture();
     DartMessenger dartMessenger = new DartMessenger(messenger, flutterSurfaceTexture.id());
@@ -177,9 +178,10 @@ final class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
             dartMessenger,
             cameraName,
             resolutionPreset,
-            enableAudio, 
-            enableTorch, 
-            enableAE);
+            enableAudio,
+            enableTorch,
+            enableAE,
+            fixOrientation);
 
     camera.open(result);
   }

@@ -51,6 +51,7 @@ public class Camera {
   private final boolean enableAudio;
   private final boolean enableTorch;
   private final boolean enableAE;
+  private final boolean fixOrientation;
 
   private CameraDevice cameraDevice;
   private CameraCaptureSession cameraCaptureSession;
@@ -81,7 +82,8 @@ public class Camera {
       final String resolutionPreset,
       final boolean enableAudio,
       final boolean enableTorch,
-      final boolean enableAE)
+      final boolean enableAE
+      final boolean fixOrientation)
       throws CameraAccessException {
     if (activity == null) {
       throw new IllegalStateException("No activity available!");
@@ -91,6 +93,7 @@ public class Camera {
     this.enableAudio = enableAudio;
     this.enableTorch = enableTorch;
     this.enableAE = enableAE;
+    this.fixOrientation = fixOrientation;
     this.flutterTexture = flutterTexture;
     this.dartMessenger = dartMessenger;
     this.cameraManager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
@@ -105,7 +108,10 @@ public class Camera {
             currentOrientation = (int) Math.round(i / 90.0) * 90;
           }
         };
-    orientationEventListener.enable();
+    if( !fixOrientation )
+        orientationEventListener.enable();
+    else
+        currentOrientation = 0;
 
     CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraName);
     StreamConfigurationMap streamConfigurationMap =
