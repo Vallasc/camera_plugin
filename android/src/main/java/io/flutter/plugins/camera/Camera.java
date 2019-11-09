@@ -82,7 +82,7 @@ public class Camera {
       final String resolutionPreset,
       final boolean enableAudio,
       final boolean enableTorch,
-      final boolean enableAE
+      final boolean enableAE,
       final boolean fixOrientation)
       throws CameraAccessException {
     if (activity == null) {
