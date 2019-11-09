@@ -311,6 +311,51 @@ class CameraController extends ValueNotifier<CameraValue> {
     return _creatingCompleter.future;
   }
 
+  Future<void> torchOn(double level) async {
+    if (!value.isInitialized || _isDisposed) {
+      throw CameraException(
+          'Uninitialized CameraController.',
+          'takePicture was called on uninitialized CameraController',
+      );
+    }
+    if (value.isTakingPicture) {
+      throw CameraException(
+        'Previous capture has not returned yet.',
+        'takePicture was called before the previous capture returned.',
+      );
+    }
+    try {
+      await _channel.invokeMethod<void>(
+        'torchOn',
+        <String, dynamic>{'level': level},
+      );
+    } on PlatformException catch (e) {
+      throw CameraException(e.code, e.message);
+    }
+  }
+
+  Future<void> torchOff() async {
+    if (!value.isInitialized || _isDisposed) {
+      throw CameraException(
+          'Uninitialized CameraController.',
+          'takePicture was called on uninitialized CameraController',
+      );
+    }
+    if (value.isTakingPicture) {
+      throw CameraException(
+        'Previous capture has not returned yet.',
+        'takePicture was called before the previous capture returned.',
+      );
+    }
+    try {
+      await _channel.invokeMethod<void>(
+        'torchOff',
+      );
+    } on PlatformException catch (e) {
+      throw CameraException(e.code, e.message);
+    }
+  }
+
   /// Prepare the capture session for video recording.
   ///
   /// Use of this method is optional, but it may be called for performance
