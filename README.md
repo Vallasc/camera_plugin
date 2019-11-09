@@ -66,12 +66,13 @@ class _CameraAppState extends State<CameraApp> {
   @override
   void initState() {
     super.initState();
-    controller = CameraController(cameras[0], ResolutionPreset.medium, enableTorch: true);
+    controller = CameraController(cameras[0], ResolutionPreset.medium);
     controller.initialize().then((_) {
       if (!mounted) {
         return;
       }
       setState(() {});
+      controller.torchOn(1);
     });
   }
 
