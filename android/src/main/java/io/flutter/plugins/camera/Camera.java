@@ -238,6 +238,7 @@ public class Camera {
       return;
     }
 
+
     pictureImageReader.setOnImageAvailableListener(
         reader -> {
           try (Image image = reader.acquireLatestImage()) {
@@ -252,9 +253,10 @@ public class Camera {
 
     try {
       final CaptureRequest.Builder captureBuilder =
-          cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
-      captureBuilder.addTarget(pictureImageReader.getSurface());
-      captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getMediaOrientation());
+        cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
+        captureBuilder.addTarget(pictureImageReader.getSurface());
+        captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getMediaOrientation());
+        captureBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
 
       cameraCaptureSession.capture(
           captureBuilder.build(),
@@ -314,12 +316,12 @@ public class Camera {
 
     // Torch
     captureRequestBuilder.set(
-      CaptureRequest.FLASH_MODE, 
+      CaptureRequest.FLASH_MODE,
       enableTorch ? CaptureRequest.FLASH_MODE_TORCH : CaptureRequest.FLASH_MODE_OFF);
 
     // Auto Exposure
     captureRequestBuilder.set(
-      CaptureRequest.CONTROL_AE_MODE, 
+      CaptureRequest.CONTROL_AE_MODE,
       enableAE ? CaptureRequest.CONTROL_AE_MODE_ON : CaptureRequest.CONTROL_AE_MODE_OFF);
 
     // Prepare the callback
@@ -496,13 +498,13 @@ public class Camera {
   public void setTorchMode(@NonNull final Result result, boolean enable){
     setTorchMode(result, enable, 1.0);
   }
-  
+
   public void setTorchMode(@NonNull final Result result, boolean enable, double level){
     try {
       captureRequestBuilder.set(
-        CaptureRequest.FLASH_MODE, 
+        CaptureRequest.FLASH_MODE,
         enable ? CaptureRequest.FLASH_MODE_TORCH : CaptureRequest.FLASH_MODE_OFF);
-        
+
       cameraCaptureSession.setRepeatingRequest(captureRequestBuilder.build(), null, null);
 
       result.success(null);
@@ -510,22 +512,22 @@ public class Camera {
       result.error("cameraTorchFailed", e.getMessage(), null);
     }
   }
-  
+
   public void setAEMode(@NonNull final Result result, boolean enable){
     try {
       // Auto Exposure
       captureRequestBuilder.set(
-        CaptureRequest.CONTROL_AE_MODE, 
+        CaptureRequest.CONTROL_AE_MODE,
         enable ? CaptureRequest.CONTROL_AE_MODE_ON : CaptureRequest.CONTROL_AE_MODE_OFF);
-    
+
       cameraCaptureSession.setRepeatingRequest(captureRequestBuilder.build(), null, null);
-      
+
       result.success(null);
     } catch (Exception e) {
       result.error("cameraAEFailed", e.getMessage(), null);
     }
   }
-  
+
   private void closeCaptureSession() {
     if (cameraCaptureSession != null) {
       cameraCaptureSession.close();
