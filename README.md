@@ -4,12 +4,14 @@ This is a modified version of the flutter plugin, waiting for updates from the F
 
 ## Features:
 
-* Fix camera orientation
-* Enable flash during capture
 * Display live camera preview in a widget.
 * Snapshots can be captured and saved to a file.
 * Record video.
 * Add access to the image stream from Dart.
+
+Only Android
+* Fix camera orientation
+* Enable flash during capture
 
 ## Installation
 
